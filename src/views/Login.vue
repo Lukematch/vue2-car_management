@@ -27,6 +27,11 @@
           placeholder="请输入密码"
           />
         </el-form-item>
+        <el-form-item prop="captchacode">
+          <el-input
+          placeholder="请输入验证码"
+          />
+        </el-form-item>
         <el-button
         type="primary"
         native-type="submit"

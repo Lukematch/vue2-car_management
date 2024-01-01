@@ -4,13 +4,13 @@ import router from './router'
 import store from './store'
 import './element-variables.scss'
 import 'normalize.css/normalize.css'
-import ElementUI from 'element-ui'
+import './plugins/element'
 import './element-variables.scss'
 
 
 Vue.config.productionTip = false
 
-Vue.use(ElementUI)
+// Vue.use(ElementUI)
 
 new Vue({
   router,
