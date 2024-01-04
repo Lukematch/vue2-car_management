@@ -6,11 +6,12 @@ import './element-variables.scss'
 import 'normalize.css/normalize.css'
 import './plugins/element'
 import './element-variables.scss'
+import ElementUI from 'element-ui'
 
 
 Vue.config.productionTip = false
 
-// Vue.use(ElementUI)
+Vue.use(ElementUI)
 
 new Vue({
   router,

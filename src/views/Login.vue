@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { GetCaptchaCodeApi } from '../utils/api'
 export default {
   data(){
     var validateCaptchCode=(rule, value, callback)=>{
@@ -86,7 +86,9 @@ export default {
       verifyCode:{
         verifyCodeImgUrl:'',
         verifyCode:'',
-        whRatio:''
+        whRatio:'',
+        code:'',
+        uuid:''
       }
     }
   },
@@ -99,7 +101,8 @@ export default {
       //console.log(username,password,captchacode);
       this.$refs['formName'].validate((valid) => {
           console.log(valid);
-          console.log(this.$refs['formName']);
+          console.log(this.$refs['formName'])
+          // const {code,uuid} = this.verifyCode
           if (valid) {
             this.$message.success('欢迎登录！')
             this.$router.replace('/home')
@@ -124,25 +127,34 @@ export default {
       // }
     },
     async captchacode (){
-      try{
-      const {data} = await axios({
-        url:'/verifycode/code',
-        baseURL: 'https://www.mxnzp.com/api',
-        params:{
-          len:5,
-          type:0,
-          app_id:'xvqopyqkqb1vnusl',
-          app_secret:'mlACdkAAIYaezcdM2gJGOvErsbmKL0u1'
-        }
-      })
-      this.verifyCode.verifyCodeImgUrl = data.data.verifyCodeImgUrl
-      this.verifyCode.verifyCode = data.data.verifyCode
-      this.verifyCode.whRatio = data.data.whRatio
-      console.log(data.data);
-    } catch(error){
-        throw new Error(error)
+      try {
+        const res = await GetCaptchaCodeApi();
+        console.log("Callback is executed");
+        console.log(res);
+        this.verifyCode.verifyCodeImgUrl = res.verifyCodeImgUrl;
+        this.verifyCode.verifyCode = res.verifyCode;
+        this.verifyCode.whRatio = res.whRatio;
+      } catch (err) {
+        console.error('Error fetching captcha code:', err);
+        // 处理错误，例如显示错误消息或其他操作
       }
+          // this.verifyCode.verifyCodeImgUrl = "data:image/gif;base64," + data.img
+          // this.verifyCode.code = data.code
+          // this.verifyCode.uuid = data.uuid
     },
+      //   url:'/verifycode/code',
+      //   baseURL: 'https://www.mxnzp.com/api',
+      //   params:{
+          // len:5,
+          // type:0,
+          // app_id:'xvqopyqkqb1vnusl',
+          // app_secret:'mlACdkAAIYaezcdM2gJGOvErsbmKL0u1'
+      //   }
+      // })
+      // this.verifyCode.verifyCodeImgUrl = data.data.verifyCodeImgUrl
+      // this.verifyCode.verifyCode = data.data.verifyCode
+      // this.verifyCode.whRatio = data.data.whRatio
+      // console.log(data.data);
     async resetImg(){
       setTimeout(()=>{
         this.captchacode()

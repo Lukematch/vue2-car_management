@@ -2,34 +2,43 @@
   <div class="home">
     <Menu/>
     <div class="container">
-      <HelloWorld />
-      </div>
+      <Workbench />
+    </div>
+    <card shadow="hover" class="footer">
+      <Footer/>
+    </card>
   </div>
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue';
-import Menu from '@/components/Menu.vue'
+import Workbench from '@/components/Workbench.vue'
+import Menu from '@/components/Menu.vue';
+import Footer from '@/components/Footer.vue'
+
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld,
-    Menu
+    Workbench,Menu,Footer
 },
   data(){
-    
+
     return{
 
     }
   },
   methods: {
-    handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      }
+    
   },
 }
 </script>
 
 <style scoped>
-
+  .container{
+    background-color: #f5f1f1;
+  }
+  .footer{
+    height: 20px;
+    background-color: #e9e4e4;
+    text-align: center;
+  }
 </style>
