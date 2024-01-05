@@ -7,13 +7,13 @@
         <!-- <el-avatar  fit="fill" :src="avatarUrl" :size="100" alt="今天又是美好的一天！"></el-avatar> -->
         <el-avatar  fit="fill" src="http://power-api.cretinzp.com:8000/girls/16/ybtylselkaookmoq.jpg" :size="150" alt="今天又是美好的一天！"></el-avatar>
       </el-col>
-      <el-col span="10" class="card-head-up-middle">
+      <el-col span="9" class="card-head-up-middle">
         <el-card shadow="hover" class="time-box">
-
+          <ClockCard/>
         </el-card>
       </el-col>
       <el-col :span="8" class="card-head-up-right">
-        <el-card shadow="hover" class="weather-box">
+        <el-card class="weather-box">
           <div class="tem-box">
             <div>
               <span class="title">{{weather.address}}</span>
@@ -60,7 +60,7 @@
   <el-row class="container">
       <el-card shadow="hover" class="card3-1">
         <h3 slot="header">中国财富榜</h3>
-        <div id="fbs" style="height:200px"></div>
+        <div id="fbs" style="height: 200px; width: 100%;"></div>
       </el-card>
       <el-card shadow="hover" class="card3-2">
       </el-card>
@@ -95,9 +95,11 @@
 const moment= require('moment')
 import { GetGirlImageApi, GetWeatherApi } from '@/utils/api'
 import {Column} from '@antv/g2plot'
+import ClockCard from './ClockCard.vue'
 
 export default {
   name: 'HelloWorld',
+  components:{ ClockCard },
   data(){
     return{
       avatarUrl:'',
@@ -123,20 +125,20 @@ export default {
         { technology: 'element-ui', version: '^2.15.14' },
         { technology: 'axios', version: '^1.6.3' },
         { technology: 'moment', version: '^2.30.1' },
-        { technology: 'sass', version: '^1.69.6' },
+        { technology: 'sass', version: '^1.69.7' },
         { technology: '@antv/g2plot', version: '^2.4.31' }
       ],
       fbsOptions:[
-        {type:'何恒健',sales:'234'},
-        {type:'马云',sales:'235'},
-        {type:'丁磊',sales:'267'},
-        {type:'李兆基',sales:'295'},
-        {type:'黄峥',sales:'302'},
-        {type:'曾毓群',sales:'334'},
-        {type:'马化腾',sales:'353'},
-        {type:'李嘉诚',sales:'380'},
-        {type:'张一鸣',sales:'450'},
-        {type:'钟睒睒',sales:'680'},
+        {type:'钟睒睒',sales:4500,assets:'农夫山泉'},
+        {type:'马化腾',sales:2800,assets:'腾讯'},
+        {type:'黄峥',sales:2700,assets:'拼多多'},
+        {type:'曾毓群',sales:2500,assets:'宁德时代'},
+        {type:'张一鸣',sales:2450,assets:'字节跳动'},
+        {type:'丁磊',sales:2400,assets:'网易'},
+        {type:'李嘉诚',sales:2100,assets:'长江实业'},
+        {type:'何恒健',sales:2000,assets:'美的'},
+        {type:'李书福',sales:1750,assets:'吉利'},
+        {type:'马云',sales:1700,assets:'阿里巴巴'},
       ]
     }
   },
@@ -192,8 +194,12 @@ export default {
           // 配置样式
           style: {
             fill: '#fff',
+            fontSize: 8,
             opacity: 0.6,
           },
+        },
+        tooltip:{
+
         },
         xAxis: {
           label: {
@@ -202,7 +208,14 @@ export default {
           },
         },
         yAxis: {
-          label:['0','100','200','300','400','500','600','700','800']
+          title:{
+            text:'资产(亿人民币)',
+            position:'center',
+            autoRotate:true
+          },
+          nice: true,
+          min:0,
+          max:4600,
         },
         meta: {
           type: {
@@ -211,6 +224,9 @@ export default {
           sales: {
             alias: '资产',
           },
+          assets:{
+            alias:'旗下企业'
+          }
         },
         tooltip: {
           showMarkers: false,
@@ -222,11 +238,10 @@ export default {
         // isPercent:true
       })
       columnPlot.render()
-      console.log(columnPlot);
+      // console.log(columnPlot);
     }
   },
 }
-
 </script>
 
 <!-- .page-header {
@@ -257,6 +272,12 @@ span {
 }
 .time-box{
   height: 160.59px;
+  background: rgb(22,200,200);
+  filter: opacity(0.6);
+}
+.time-box:hover {
+  filter: opacity(0.8);
+  background: orange;
 }
 .weather-box-left {
   display: flex;

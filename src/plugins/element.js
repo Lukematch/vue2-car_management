@@ -1,4 +1,4 @@
-import { Button, Card, Form, FormItem, Image, Input, Menu, MenuItem, Message, Submenu , Avatar, Dropdown } from 'element-ui'
+import { Button, Card, Form, FormItem, Image, Input, Menu, MenuItem, Message, Submenu , Avatar, Dropdown, Descriptions, Row, Col, DescriptionsItem } from 'element-ui'
 import Vue from 'vue'
 
 Vue.use(Form)
@@ -12,6 +12,10 @@ Vue.use(MenuItem)
 Vue.use(Submenu)
 Vue.use(Dropdown)
 Vue.use(Avatar)
+Vue.use(Descriptions)
+Vue.use(Row)
+Vue.use(Col)
+Vue.use(DescriptionsItem)
 
 
 // Vue.use(Message)
